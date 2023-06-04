@@ -46,29 +46,33 @@ const confirm = () => {
   console.log('点击了确认')
 }
 
-const filterValue = ref('') // 双向绑定
+//const filterValue = ref('') // 双向绑定
 const checked = ref(true)
+const filterable = ref(true)
 
 </script>
 
 <template>
-  搜索框：
-  <ChuckSearch v-model="filterValue" />
-  CheckBox:
-  <CheckBox color="#1989fa" v-model="checked" :childChecked="false" :disabled="false" @update:value="(_e: any) => {}" />
-  RadioBox:
-  <RadioBox color="#1989fa" v-model="checked" :disabled="false" :showNext="true" /> 
-  级联：
+  <!-- 搜索框：
+  <ChuckSearch v-model="filterValue" /> -->
+  <div style="display: flex; align-items: center; margin: 20px;">
+    切换单多选：
+    <CheckBox color="#1989fa" v-model="checked" :childChecked="false" :disabled="false" @update:value="(_e: any) => {value = []}" />&nbsp;&nbsp;&nbsp;&nbsp;
+    是否支持搜索：
+    <CheckBox color="#1989fa" v-model="filterable" :childChecked="false" :disabled="false" @update:value="(_e: any) => {}" />
+  </div>
+  <!-- RadioBox:
+  <RadioBox color="#1989fa" v-model="checked" :disabled="false" :showNext="true" />  -->
   <ChuckCascader
     :options="options"
-    :multiple="false"
+    :multiple="checked"
     color="#1989fa"
     title="请选择"
     v-model="value"
     @update:value="onUpdateValue"
     height="250px"
     :zIndex="9999"
-    :filterable="true"
+    :filterable="filterable"
     @confirm="confirm"
   />
 </template>

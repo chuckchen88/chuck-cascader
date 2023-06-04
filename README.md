@@ -27,7 +27,7 @@ $ Vue.use(ChuckCascader)
 ### ChuckCascader参数说明
 |参数|类型|是否必传|说明|
 |-|-|-|-|
-|v-model|string\|string[]|是|多选时是数组,单选时是字符串|
+|v-model|string\|string[]|否|多选时是数组,单选时是字符串|
 |options|CascaderOption[]|是|选项|
 |multiple|boolean|否|是否多选，默认false|
 |color|string|否|主题颜色，默认'#1989fa'|

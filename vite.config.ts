@@ -11,6 +11,17 @@ const lib = {
 	fileName: "chuck-cascader",
 } //库编译模式配置
 
+let rollupOptions =  {
+	// 确保外部化处理那些你不想打包进库的依赖
+	external: ["vue"],
+	output: {
+		// 在 UMD 构建模式下为这些外部化的依赖提供一个全局变量
+		globals: {
+			vue: "Vue",
+		},
+	},
+} // rollup打包配置
+
 // https://vitejs.dev/config/
 export default defineConfig({
 	base: 'chuck-cascader',
@@ -30,16 +41,7 @@ export default defineConfig({
 	build: {
 			outDir: buidType, // 打包文件的输出目录
 			lib: (buidType === 'docs')?false:lib,
-			// rollupOptions: {
-			// 	// 确保外部化处理那些你不想打包进库的依赖
-			// 	external: ["vue"],
-			// 	output: {
-			// 		// 在 UMD 构建模式下为这些外部化的依赖提供一个全局变量
-			// 		globals: {
-			// 			vue: "Vue",
-			// 		},
-			// 	},
-			// }, // rollup打包配置
+			rollupOptions: (buidType === 'docs')?{}:rollupOptions,
 		},
 	css: {
 		// css预处理器
