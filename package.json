@@ -38,6 +38,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc && vite build",
+    "build:docs": "vue-tsc && vite build -- docs",
     "preview": "vite preview"
   },
   "license": "ISC",

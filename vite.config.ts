@@ -3,6 +3,14 @@ import vue from '@vitejs/plugin-vue'
 import path from 'path'
 import dts from 'vite-plugin-dts'
 
+const buidType = process.argv.splice(4)[0] || 'dist' // docs
+
+const lib = {
+	entry: path.resolve(__dirname, "./src/components/index.ts"), //指定组件编译入口文件
+	name: "ChuckCascader",
+	fileName: "chuck-cascader",
+} //库编译模式配置
+
 // https://vitejs.dev/config/
 export default defineConfig({
 	plugins: [
@@ -19,11 +27,8 @@ export default defineConfig({
 		}
 	},
 	build: {
-			lib: {
-				entry: path.resolve(__dirname, "./src/components/index.ts"), //指定组件编译入口文件
-				name: "ChuckCascader",
-				fileName: "chuck-cascader",
-			}, //库编译模式配置
+			outDir: buidType, // 打包文件的输出目录
+			lib: (buidType === 'docs')?false:lib,
 			rollupOptions: {
 				// 确保外部化处理那些你不想打包进库的依赖
 				external: ["vue"],
