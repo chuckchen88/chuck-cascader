@@ -13,6 +13,7 @@ const lib = {
 
 // https://vitejs.dev/config/
 export default defineConfig({
+	base: 'chuck-cascader',
 	plugins: [
 		vue(),
 		dts({

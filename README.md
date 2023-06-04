@@ -1,6 +1,10 @@
 ### 介绍
 由于很多移动端组件库例如vant、nutui、cube等并不支持多选的级联选择器，于是一个基于vue3开发的支持多选的移动端级联选择器诞生了。
 
+### 预览
+<https://chuckchen88.github.io/chuck-cascader/>
+
+
 ### 安装
 ``` bash
 $ npm i chuck-cascader
