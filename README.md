@@ -7,7 +7,7 @@
 
 ### 安装
 ``` bash
-$ npm i chuck-cascader
+$ npm i chuck-cascader@latest
 
 ```
 

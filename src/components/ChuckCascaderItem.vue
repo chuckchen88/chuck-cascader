@@ -22,13 +22,16 @@ export default {
   }>()
   const emits = defineEmits(["checkChange"])
 
-  const change = (index: number, item: CascaderOption) => {
+  const change = (index: number, item: CascaderOption, type: number = 1) => {
     if(item.disabled) return false
-    activeId.value = -1
     activeId.value = index
     // 没有children代表是最后一级
-    if (!item.children) {
-      item.checked = props.multiple?!item.checked:true
+    if(type === 1){
+      if (!item.children) {
+        item.checked = props.multiple?!item.checked:true
+        emits("checkChange", item)
+      }
+    } else {
       emits("checkChange", item)
     }
   }
@@ -61,7 +64,7 @@ export default {
       @click.self="change(index, item)"
     >
       {{ item.label }}
-      <CheckBox v-if="multiple" :color="color" v-model="item.checked" :childChecked="item.childChecked" :disabled="item.disabled" @update:value="(_e: any) => checkChange(item)" />
+      <CheckBox v-if="multiple" :color="color" v-model="item.checked" :childChecked="item.childChecked" :disabled="item.disabled" @update:value="(_e: any) => change(index, item, 2)" />
       <RadioBox v-else :color="color" v-model="item.checked" :disabled="item.disabled" :showNext="item.children && item.children.length > 0"></RadioBox>
     </div>
   </div>
