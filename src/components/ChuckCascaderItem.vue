@@ -63,7 +63,7 @@ export default {
       :class="{ active: index === activeId, disabled: item.disabled }"
       @click.self="change(index, item)"
     >
-      {{ item.label }}
+      <div style="flex:1" @click.self="change(index, item)">{{ item.label }}</div>
       <CheckBox v-if="multiple" :color="color" v-model="item.checked" :childChecked="item.childChecked" :disabled="item.disabled" @update:value="(_e: any) => change(index, item, 2)" />
       <RadioBox v-else :color="color" v-model="item.checked" :disabled="item.disabled" :showNext="item.children && item.children.length > 0"></RadioBox>
     </div>

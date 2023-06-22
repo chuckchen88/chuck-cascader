@@ -20,6 +20,7 @@ const emits = defineEmits(['update:modelValue','update:value'])
 
 const toggleCheck = () => {
   if(props.disabled) return false
+  if(props.showNext) return false
   emits("update:modelValue", !props.modelValue)
   emits("update:value", !props.modelValue)
 }

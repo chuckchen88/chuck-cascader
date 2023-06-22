@@ -4,13 +4,15 @@ export default {
 }
 </script>
 <script setup lang="ts">
-import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import { CascaderOption } from './types'
 import ChuckCascaderItem from './ChuckCascaderItem.vue';
 import ChuckSearch from './ChuckSearch.vue';
 
 const filterValue = ref('')
 const showCascader = ref(false)
+const chuckCascaderRef = ref<HTMLElement|null>(null)
+const cascaderTop = ref(0)
 
 const props = withDefaults(defineProps<{ 
   multiple?: boolean
@@ -219,7 +221,6 @@ const formatOptions = (options: CascaderOption[], checked: Boolean | undefined, 
  * @param item 
  */
 const checkChange = (item: CascaderOption) => {
-  // console.log(item, '======')
   if(props.multiple){
     item.children = item.children?formatOptions(item.children, item.checked, false): null
     getParentsByValue(options.value, item.value)
@@ -249,48 +250,32 @@ const confirm = () => {
   emits("confirm")
 }
 
-/**
- * @function clickOutSideRef - 用于初始化 clickOutSide 点击事件
- * @param {Function} clickOutsideCallback - 点击到区域外时的回调函数
- */
-const clickOutSideRef = (clickOutsideCallback: Function) => {
-  const chuckCascader = ref(null);
-  const clickHandler = (event: any) => {
-    const { target } = event;
-    // 判断是否点在外面
-    if(target.contains(chuckCascader.value)){
-      clickOutsideCallback(event);
-    }
-  }
-  onMounted(() => {
-    if(!chuckCascader) return;
-    document.addEventListener("click", clickHandler);
-  });
-  onBeforeUnmount(() => {
-    document.removeEventListener("click", clickHandler);
-  });
-  return chuckCascader;
-}
-
-const chuckCascader = clickOutSideRef(() => {
-  showCascader.value = false
+onMounted(() => {
+  cascaderTop.value = chuckCascaderRef.value?.getBoundingClientRect().top as any + chuckCascaderRef.value?.getBoundingClientRect().height + 2  // 有两像素的边框
 });
 
+const expand = (bool: boolean) => {
+  showCascader.value = bool
+}
+defineExpose({
+  expand
+})
 </script>
 
 <template>
-  <div style="position:relative;" ref="chuckCascader">
+  <div style="position:relative;" ref="chuckCascaderRef">
     <div class="chuckCascaderList">
       <div 
         class="pullDownBtn" 
-        @click="toggleCascader" 
+        @click.prevent="toggleCascader" 
         :style="`color:${textColor}`"
       >
         {{ modelValue?.length?`${ multiple?modelValue.length+'项':modelValue}`:title }}
         <i v-if="!showCascader" class="iconfont icon-down"></i>
         <i v-else class="iconfont icon-upward"></i>
       </div>
-      <div class="chuckCascader" :style="`z-index:${zIndex}`" v-show="showCascader">
+      <div class="mask" :style="`top:${cascaderTop}px`" v-show="showCascader" @click.prevent="toggleCascader" ></div>
+      <div class="chuckCascader" :style="`z-index:${zIndex};top:${cascaderTop}px`" v-show="showCascader">
          <ChuckSearch v-if="filterable" v-model="filterValue" />
          <div class="item" :style="`height:${height}`">
           <ChuckCascaderItem 
@@ -314,6 +299,15 @@ const chuckCascader = clickOutSideRef(() => {
 
 <style scoped lang="less">
 @import url('@/assets/ifont/iconfont.css');
+.mask{
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+  top: 40px;
+  left: 0;
+  z-index: 2002;
+  background: rgba(0,0,0,.7);
+}
 .chuckCascaderList{
   height: 40px;
   width: 100%;
@@ -325,13 +319,14 @@ const chuckCascader = clickOutSideRef(() => {
     border-top: 1px solid #eee;
     border-bottom: 1px solid #eee;
   }
+
   .chuckCascader{
-    position: absolute;
+    position: fixed;
     left: 0;
-    top: 44px;
+    top: 40px;
     width: 100vw;
     background:white;
-    z-index: 9999;
+    z-index: 2023;
     box-shadow: 0 10px 10px 0 rgba(0,0,0,.1);
     transition: height .3s;
     .item {

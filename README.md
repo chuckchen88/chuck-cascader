@@ -52,6 +52,14 @@ interface CascaderOption{
 |on-update:value|(value: string \| number \| Array<string \| number> \| null, option: CascaderOption \| Array<CascaderOption \| null> \| null) => void|undefined|值改变时执行的回调|
 |on-confirm|() => void|undefined|点击了确认回调|
 
+### 异步展开或收起
+```
+const cascaderRef = ref<any>(null)
+// 展开
+cascaderRef.value.expand(true)
+// 收起
+cascaderRef.value.expand(false)
+```
 
 ### vue3中使用示例
 ``` bash

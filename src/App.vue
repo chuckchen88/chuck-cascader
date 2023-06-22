@@ -5,6 +5,7 @@ import { ref } from 'vue'
 
 const value = ref([]) // 双向绑定
 const options = ref<CascaderOption[]>([]) // 选项
+const c2 = ref<any>(null)
 
 function getOptions (depth = 3, iterator = 1, prefix = '') {
   const length = 12
@@ -44,6 +45,7 @@ const onUpdateValue = (value: string[], options: CascaderOption[]) => {
 
 const confirm = () => {
   console.log('点击了确认')
+  c2.value.expand(true)
 }
 
 //const filterValue = ref('') // 双向绑定
@@ -63,6 +65,7 @@ const filterable = ref(true)
   </div>
   <!-- RadioBox:
   <RadioBox color="#1989fa" v-model="checked" :disabled="false" :showNext="true" />  -->
+
   <ChuckCascader
     :options="options"
     :multiple="checked"
@@ -74,7 +77,9 @@ const filterable = ref(true)
     :zIndex="9999"
     :filterable="filterable"
     @confirm="confirm"
+    ref="c2"
   />
+  
 </template>
 
 <style lang="less">

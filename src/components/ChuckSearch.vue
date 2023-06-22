@@ -59,7 +59,6 @@ const onInput = (e: any) => {
     min-width: 0;
     margin: 0;
     padding: 0;
-    color: var(--van-field-input-text-color);
     line-height: inherit;
     text-align: left;
     background-color: transparent;
