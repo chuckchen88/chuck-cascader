@@ -275,15 +275,14 @@ const H = /* @__PURE__ */ N($e, [["__scopeId", "data-v-6072fd05"]]), Be = { clas
       } else
         a("update:modelValue", e.value), a("update:value", e.value, e);
     }, D = () => {
-      h.value = !h.value;
+      var e, l;
+      h.value = !h.value, n.value = ((e = k.value) == null ? void 0 : e.getBoundingClientRect().top) + ((l = k.value) == null ? void 0 : l.getBoundingClientRect().height) + 2;
     }, W = () => {
-      a("update:modelValue", null);
+      a("update:modelValue", null), a("update:value", [], []);
     }, X = () => {
       D(), a("confirm");
     };
     return ce(() => {
-      var e, l;
-      n.value = ((e = k.value) == null ? void 0 : e.getBoundingClientRect().top) + ((l = k.value) == null ? void 0 : l.getBoundingClientRect().height) + 2;
     }), u({
       expand: (e) => {
         h.value = e;
@@ -353,7 +352,7 @@ const H = /* @__PURE__ */ N($e, [["__scopeId", "data-v-6072fd05"]]), Be = { clas
     };
   }
 });
-const ze = /* @__PURE__ */ N(Ue, [["__scopeId", "data-v-74b69e46"]]), De = [ze, H, q, G], Ee = function(s) {
+const ze = /* @__PURE__ */ N(Ue, [["__scopeId", "data-v-1d36b6a2"]]), De = [ze, H, q, G], Ee = function(s) {
   De.forEach((u) => {
     s.component(u.name, u);
   });

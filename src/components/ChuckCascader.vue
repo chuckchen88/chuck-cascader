@@ -239,10 +239,12 @@ const checkChange = (item: CascaderOption) => {
  */
 const toggleCascader = () => {
   showCascader.value = !showCascader.value
+  cascaderTop.value = chuckCascaderRef.value?.getBoundingClientRect().top as any + chuckCascaderRef.value?.getBoundingClientRect().height + 2  // 有两像素的边框
 }
 
 const reset = () => {
   emits('update:modelValue', null)
+  emits('update:value', [], [])
 }
 
 const confirm = () => {
@@ -251,7 +253,7 @@ const confirm = () => {
 }
 
 onMounted(() => {
-  cascaderTop.value = chuckCascaderRef.value?.getBoundingClientRect().top as any + chuckCascaderRef.value?.getBoundingClientRect().height + 2  // 有两像素的边框
+  
 });
 
 const expand = (bool: boolean) => {
